@@ -10,8 +10,6 @@ def import_transactions(pages):
     transactions = []
     order = 0
     for page in pages:
-        if order == "60485":
-            break
         for line in page.extract_table():
             order, dt_str, comment, amount_str, offset_name = line
             date_obj = datetime.strptime(dt_str.strip(), "%m/%d/%Y\n%H:%M:%S").astimezone(
@@ -35,4 +33,5 @@ def import_transactions(pages):
 
 pdf = pdfplumber.open('./VietinBank CT1111 Support.pdf')
 
-import_transactions(pdf.pages[1:])
+import_transactions(pdf.pages[-1:])
+
