@@ -33,5 +33,5 @@ def import_transactions(pages):
 
 pdf = pdfplumber.open('./VietinBank CT1111 Support.pdf')
 
-import_transactions(pdf.pages[-1:])
+import_transactions(pdf.pages[1:])
 
