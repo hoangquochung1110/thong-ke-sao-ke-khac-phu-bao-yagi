@@ -1,0 +1,45 @@
+<!-- transaction_list.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <h1>Transactions</h1>
+
+  <!-- Search Form -->
+  <form method="GET" action="{% url 'transaction_list' %}">
+    <input type="text" name="search" placeholder="Search by order or comment" value="{{ request.GET.search }}">
+    <button type="submit">Search</button>
+  </form>
+
+  <!-- Filter Form -->
+  <form method="GET" action="{% url 'transaction_list' %}">
+    <label for="min_amount">Min Amount:</label>
+    <input type="number" name="min_amount" step="0.01" value="{{ request.GET.min_amount }}">
+    
+    <label for="max_amount">Max Amount:</label>
+    <input type="number" name="max_amount" step="0.01" value="{{ request.GET.max_amount }}">
+    
+    <label for="start_date">Start Date:</label>
+    <input type="date" name="start_date" value="{{ request.GET.start_date }}">
+    
+    <label for="end_date">End Date:</label>
+    <input type="date" name="end_date" value="{{ request.GET.end_date }}">
+    
+    <button type="submit">Filter</button>
+  </form>
+
+  <ul>
+    {% for transaction in transactions %}
+      <li>
+        {{ transaction.order }} - 
+        {{ transaction.transaction_datetime }} - 
+        {{ transaction.comment }} - 
+        {{ transaction.amount }} - 
+        {{ transaction.offset_name }}
+      </li>
+    {% empty %}
+      <li>No transactions found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
